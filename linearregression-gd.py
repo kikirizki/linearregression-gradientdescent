@@ -5,9 +5,9 @@ import matplotlib.pyplot as plt
 
 
 class model:
-    def __init__(self, x, y):
-        self.x = x
+    def __init__(self, y):
         self.y = y
+        self.x = np.arange(0, len(self.y), 1)
         self.theta0 = random.randrange(-5, 5, 1)
         self.theta1 = random.randrange(-5, 5, 1)
 
@@ -21,10 +21,10 @@ class model:
     def J(self):
         return np.average((self.h(self.x) - self.y) ** 2) / 2
 
-    def delta_theta0(self):
+    def delta_h_delta_theta0(self):
         return np.average((self.h(self.x) - self.y))
 
-    def delta_theta1(self):
+    def delta_h_delta_theta1(self):
         return np.average((self.h(self.x) - self.y) * self.x)
 
     def plot(self):
@@ -32,14 +32,17 @@ class model:
         plt.plot(self.x, self.y, 'ro')
         plt.show()
 
+    def do_gradient_descent(self):
+        error = 0
+        while (abs(reg.J() - error) > 0.0000001):
+            error = reg.J()
+            temp0 = self.theta0 - 0.01 * reg.delta_h_delta_theta0()
+            temp1 = self.theta1 - 0.01 * reg.delta_h_delta_theta1()
+            self.theta0 = temp0
+            self.theta1 = temp1
 
-waktu = np.arange(1, 21, 1)
-curahhujan = np.array([2., 3., 4., 2., 7., 5., 7., 8., 9., 10., 23., 34., 43., 30., 45., 43., 32., 32., 38., 45.])
-reg = model(waktu, curahhujan)
-theta0 = 2.
-theta1 = 2.
-for i in range(1000):
-    theta0 = theta0 - 0.01 * reg.delta_theta0()
-    theta1 = theta1 - 0.01 * reg.delta_theta1()
-    reg.set(theta0, theta1)
+
+data_example = np.array([1., 2., 3., 4., 5., 6.])
+reg = model(data_example)
+reg.do_gradient_descent()
 reg.plot()
