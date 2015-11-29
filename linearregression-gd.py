@@ -27,6 +27,11 @@ class model:
     def delta_theta1(self):
         return np.average((self.h(self.x) - self.y) * self.x)
 
+    def plot(self):
+        plt.plot(self.x, reg.h(self.x))
+        plt.plot(self.x, self.y, 'ro')
+        plt.show()
+
 
 waktu = np.arange(1, 21, 1)
 curahhujan = np.array([2., 3., 4., 2., 7., 5., 7., 8., 9., 10., 23., 34., 43., 30., 45., 43., 32., 32., 38., 45.])
@@ -37,6 +42,4 @@ for i in range(1000):
     theta0 = theta0 - 0.01 * reg.delta_theta0()
     theta1 = theta1 - 0.01 * reg.delta_theta1()
     reg.set(theta0, theta1)
-plt.plot(waktu, reg.h(waktu))
-plt.plot(waktu, curahhujan, 'ro')
-plt.show()
+reg.plot()
