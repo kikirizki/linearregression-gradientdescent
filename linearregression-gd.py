@@ -11,10 +11,6 @@ class model:
         self.theta0 = random.randrange(-5, 5, 1)
         self.theta1 = random.randrange(-5, 5, 1)
 
-    def set(self, theta0, theta1):
-        self.theta0 = theta0
-        self.theta1 = theta1
-
     def h(self, x):
         return (self.theta1 * x) + self.theta0
 
